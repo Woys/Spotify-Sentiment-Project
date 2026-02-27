@@ -11,7 +11,7 @@ Run via Docker Compose (Recommended)
 The easiest way to execute the pipeline end-to-end is using Docker Compose. This ensures all C++ dependencies and Python environments are correctly sandboxed.
 Bash
 
-docker compose up --build
+`docker compose up --build`
 
 This will automatically map the /data and /assets volumes to your local machine.
 
@@ -19,10 +19,13 @@ This will automatically map the /data and /assets volumes to your local machine.
 If you prefer running it locally, you need Python 3.10+ and a C++ compiler.
 Bash
 
-pip install uv
-uv pip install pybind11
-uv pip install -e .
-spotify-pipeline --step all
+`pip install uv`
+
+`uv pip install pybind11`
+
+`uv pip install -e .`
+
+`spotify-pipeline --step all`
 
 Note: You can run individual steps using --step [download|sentiment|analyze|visualize].
 
@@ -56,14 +59,12 @@ The system executes a sequential 4-step pipeline, orchestrated by a central Pipe
     Action: Maps the raw text to specific analytical topics (e.g., parsing for financial market indicators or AI trends).
 
     Process:
-
         Semantic Expansion: Before scanning, Python uses GloVe word embeddings to dynamically expand your base keywords. If you define "economy", the model will automatically include highly correlated vector terms like "inflation" or "markets".
-
-        Zero-Copy Scanning: The text chunks are passed into a custom-built C++ extension (fast_scanner.so). This C++ module uses an O(N) algorithm to scan strings for n-gram matches almost instantly. It bypasses Python's Global Interpreter Lock (GIL) and avoids copying memory back and forth.
+       Zero-Copy Scanning: The text chunks are passed into a custom-built C++ extension (fast_scanner.so). This C++ module uses an O(N) algorithm to scan strings for n-gram matches almost instantly. It bypasses Python's Global Interpreter Lock (GIL) and avoids copying memory back and forth.
 
     Output: Generates highly compressed aggregation tables (topic_metrics.csv and word_metrics.csv) that group the sentiment, popularity rank, and occurrence counts (N) of each keyword.
 
-4. N-Weighted Visualization (steps_visualize.py)
+5. N-Weighted Visualization (steps_visualize.py)
 
     Action: Generates interactive HTML dashboards.
 
