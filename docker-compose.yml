@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  pipeline:
+    build: .
+    image: spotify-sentiment-pipeline
+    container_name: spotify_sentiment_pipeline
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+      - ./assets:/app/assets
+    command: ["--step", "all"]

@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0", "pybind11>=2.10.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spotify_sentiment"
+version = "6.0.0"
+description = "Dockerized C++ pipeline for Spotify podcast analytics."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    "loguru>=0.7.0",
+    "pydantic-settings>=2.0.0",
+    "plotly>=5.15.0",
+    "tqdm>=4.65.0",
+    "kaggle>=1.5.13",
+    "nltk>=3.8.1",
+    "gensim>=4.3.1",
+    "psutil>=5.9.0",
+    "pytest>=7.4.0"
+]
+
+[project.scripts]
+spotify-pipeline = "spotify_sentiment.presentation.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
